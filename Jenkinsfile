@@ -87,6 +87,10 @@ pipeline {
                 }
             }
 
+            environment {
+                CI_ENVIRONMENT_URL = ''
+            }
+
             steps {
                 sh '''
                     npm install netlify-cli@20.1.1 node-jq
