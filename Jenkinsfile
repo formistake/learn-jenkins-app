@@ -117,7 +117,7 @@ pipeline {
             }
 
             environment {
-                CI_ENVIRONMENT_URL = 'YOUR NETLIFY URL'
+                CI_ENVIRONMENT_URL = 'https://lucent-seahorse-1d58bc.netlify.app'
             }
 
             steps {
