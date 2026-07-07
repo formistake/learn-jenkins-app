@@ -43,7 +43,7 @@ pipeline {
                             reuseNode true
                         }
                     }
-s
+
                     steps {
                         sh '''
                             #test -f build/index.html
