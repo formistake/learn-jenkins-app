@@ -4,6 +4,8 @@ pipeline {
     environment {
         REACT_APP_VERSION = "1.0.$BUILD_ID"
         AWS_DEFAULT_REGION = 'eu-south-1'
+        AWS_ECS_CLUSTER = 'common-fish-5gk0t3'
+        AWS_ECS_SERVICE_PROD = 'LearnJenkinsApp-Service-Prod'
     }
 
     stages {
@@ -23,8 +25,8 @@ pipeline {
                         yum install jq -y
                         LATEST_TD_REVISION=$(aws ecs register-task-definition --cli-input-json file://aws/task-definition-prod.json | jq '.taskDefinition.revision')
                         echo $LATEST_TD_REVISION
-                        aws ecs update-service --cluster common-fish-5gk0t3 --service LearnJenkinsApp-Service-Prod --task-definition LearnJenkinsApp-TaskDefinition-Prod:$LATEST_TD_REVISION
-                        aws ecs wait services-stable --cluster common-fish-5gk0t3 --services LearnJenkinsApp-Service-Prod
+                        aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE_PROD --task-definition LearnJenkinsApp-TaskDefinition-Prod:$LATEST_TD_REVISION
+                        aws ecs wait services-stable --cluster $AWS_ECS_CLUSTER --services $AWS_ECS_SERVICE_PROD
                     '''
                 }
             }
