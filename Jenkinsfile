@@ -7,6 +7,7 @@ pipeline {
         AWS_ECS_CLUSTER = 'common-fish-5gk0t3'
         AWS_ECS_SERVICE_PROD = 'LearnJenkinsApp-Service-Prod'
         AWS_ECS_TD_PROD = 'LearnJenkinsApp-TaskDefinition-Prod'
+        DOCKER_API_VERSION = '1.44'
     }
 
     stages {
@@ -34,14 +35,14 @@ pipeline {
             agent {
                 docker {
                     image 'amazon/aws-cli'
-                    args "-u root --entrypoint=''"
+                    args "-u root -v /var/run/docker.sock:/var/run/docker.sock --entrypoint=''"
                     reuseNode true 
                 }
             }
 
             steps {
                 sh '''
-                    amazon-linux-extras install docker
+                    dnf install docker -y
                     docker build -t myjenkinsapp .
                 '''
             }
