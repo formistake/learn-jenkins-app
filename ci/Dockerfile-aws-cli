@@ -1,0 +1,4 @@
+FROM amazon/aws-cli
+
+RUN dnf install docker -y
+RUN yum install jq -y
